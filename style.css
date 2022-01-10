@@ -106,9 +106,19 @@ ul.hide {
 }
 
 .img {
-  margin: 70px auto;
+  margin: 0px auto 70px;
+  max-width: 848px;
 }
 
 .img img {
-  max-width: 848px;
+  max-width: 100%;
+}
+
+@media (max-width: 500px) {
+  .select {
+    width: 300px;
+  }
+  ul {
+    height: 235px !important;
+  }
 }

@@ -80,9 +80,11 @@ async function getSurah(name) {
 let list = document.querySelector(".select ul");
 let select = document.querySelector(".selectField");
 let selectText = document.querySelector(".selectField p");
+let v;
+let num;
 
 async function listData() {
-  const res = await fetch("https://api.alquran.cloud/v1/surah");
+  const res = await fetch(`https://api.alquran.cloud/v1/surah`);
   const data = await res.json();
   data.data.forEach((el) => {
     let li = document.createElement("li");
@@ -96,27 +98,36 @@ async function listData() {
       selectText.innerHTML = li.textContent;
       data.data.forEach((x) => {
         if (x.name == li.textContent) {
-          let surahNum = x.number;
-          pageNum = x.number;
-          if (pageNum > 1) {
-            document.querySelector(".back").classList.add("active");
-          }
-          if (pageNum <= 1) {
-            document.querySelector(".back").classList.remove("active");
-          }
-          if (surahNum < 10) {
-            imageNum = `00${surahNum}`;
-          } else if (surahNum < 100) {
-            imageNum = `0${surahNum}`;
-          } else {
-            imageNum = surahNum;
-          }
-          let image = document.querySelector(".img img");
+          num = x.number;
+          fetch(`https://api.alquran.cloud/v1/surah/${num}`)
+            .then((response) => response.json())
+            .then((dat) => {
+              v = dat.data.ayahs[0].page;
+              console.log(v);
+              pageNum = dat.data.ayahs[0].page;
+              if (pageNum > 1) {
+                document.querySelector(".back").classList.add("active");
+              }
 
-          image.setAttribute(
-            "src",
-            `https://www.searchtruth.org/quran/images1/${imageNum}.jpg`
-          );
+              if (pageNum <= 1) {
+                document.querySelector(".back").classList.remove("active");
+              }
+
+              if (v < 10) {
+                imageNum = `00${v}`;
+              } else if (v < 100) {
+                imageNum = `0${v}`;
+              } else {
+                imageNum = v;
+              }
+
+              let image = document.querySelector(".img img");
+
+              image.setAttribute(
+                "src",
+                `https://www.searchtruth.org/quran/images1/${imageNum}.jpg`
+              );
+            });
         }
       });
     };
