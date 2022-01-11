@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap");
 
 body {
+  font-family: "Cairo", sans-serif;
   margin: 0;
   padding: 15px;
   direction: rtl;
@@ -8,7 +9,6 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* background-image: linear-gradient(#f44336, #730228); */
   background-color: #175c80;
   color: white;
 }
